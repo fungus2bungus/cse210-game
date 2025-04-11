@@ -9,7 +9,6 @@ class GameManager
     
     private List<GameObject> _gameObjects = new List<GameObject>();
     
-    private int _frames;
     private int _score = 0;
     private int _lives = 3;
     
@@ -79,7 +78,6 @@ class GameManager
     /// </summary>
     private void ProcessActions()
     {
-        // _gameObjects[2].Move();
         foreach(GameObject item in _gameObjects)
         {
             item.Move();
@@ -102,7 +100,6 @@ class GameManager
                 if(fallingObject.HitPlayer(_gameObjects[0]) == true)
                 {
                     _gameObjects.RemoveAt(i);
-                    // _gameObjects.Remove(_gameObjects[2]);
                     if(fallingObject is Bomb b)
                     {
                         _lives--;
@@ -117,6 +114,10 @@ class GameManager
                         _score++;
                     }
                 }
+                else if(fallingObject.Getter("y") > 600)
+                {
+                    _gameObjects.RemoveAt(i);
+                }
 
             }
 
@@ -130,11 +131,43 @@ class GameManager
     private void DrawElements()
     {
         Raylib.DrawText($"Lives: {_lives}", 12, 12, 20, Color.Black);
-        Raylib.DrawText($"Score: {_score}", 12, 36, 20, Color.Blue);
+        Raylib.DrawText($"Score: {_score}", 130, 12, 20, Color.Blue);
+        // I'd probably call that "makeobjects" function here I guess?
+        // wait I don't need a while loop, I just need it to make stuff here
         foreach (GameObject item in _gameObjects)
         {
             item.Draw();
         }
+        if (_lives > 0)
+        {
+            MakeObjects();
 
+        }
     }
+// okay, this more or less works... except for the fact that it runs on every single frame...
+    private void MakeObjects()
+    {
+        float st = 0f;
+        float si = 0.016889f;
+        float dt = Raylib.GetFrameTime();
+        st+=dt;
+        Random random = new Random();
+        int randr = random.Next(19, 720);
+        int randr2 = random.Next(19, 720);
+        int randsp = random.Next(2, 10);
+        int randsp2 = random.Next(2, 10);
+        // Console.WriteLine(st);
+
+        if (st > si)
+        {
+            st = 0f;
+
+            Bomb b2 = new Bomb(randr, 70, randsp);
+            _gameObjects.Add(b2);
+            Gems g2 = new Gems(randr2, 70, randsp2);
+            _gameObjects.Add(g2);
+        }
+    }
+
+    
 }

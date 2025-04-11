@@ -1,8 +1,9 @@
 using Raylib_cs;
 class Player : GameObject
 {
-    private string _left = "left";
-    private string _right = "right";
+    // private string _left = "left";
+    // private string _right = "right";
+    // I honestly have no idea how I was supposed to use these
 
     public Player()
     {
@@ -13,7 +14,7 @@ class Player : GameObject
     
     public override void Draw() //square
     {
-        Raylib.DrawRectangle(_x, _y, 20, 20, Color.Black);
+        Raylib.DrawRectangle(_x, _y, 20, 20, Color.Magenta);
     }
 
     public void SetSpeed(bool m)
@@ -34,7 +35,6 @@ class Player : GameObject
             _x=_x+_speed;
         }
     }
-    
 
     public void MoveLeft()
     {
