@@ -6,7 +6,13 @@ class GameManager
     public const int SCREEN_HEIGHT = 600;
 
     private string _title;
-
+    
+    private List<GameObject> _gameObjects = new List<GameObject>();
+    
+    private int _frames;
+    private int _score;
+    private int _lives;
+    
     public GameManager()
     {
         _title = "CSE 210 Game";
@@ -47,6 +53,12 @@ class GameManager
     /// </summary>
     private void InitializeGame()
     {
+        Player p1 = new Player();
+        Bomb b1 = new Bomb(600, 100, 4, 10);
+        Gems g1 = new Gems(100, 100, 4);
+        _gameObjects.AddRange(new List<GameObject> {p1, g1, b1});
+        Raylib.DrawText("Lives: 3", 12, 12, 20, Color.Black);
+
 
     }
 
@@ -55,6 +67,7 @@ class GameManager
     /// </summary>
     private void HandleInput()
     {
+        // _gameObjects[0].Move();
 
     }
 
@@ -63,7 +76,11 @@ class GameManager
     /// </summary>
     private void ProcessActions()
     {
-
+        // _gameObjects[2].Move();
+        foreach(GameObject item in _gameObjects)
+        {
+            item.Move();
+        }
     }
 
     /// <summary>
@@ -71,6 +88,10 @@ class GameManager
     /// </summary>
     private void DrawElements()
     {
+        foreach (GameObject item in _gameObjects)
+        {
+            item.Draw();
+        }
 
     }
 }
