@@ -3,7 +3,7 @@ using Raylib_cs;
 class Gems : FallingObject
 {
     // constructor?
-    public Gems(int x, int y, int sp)
+    public Gems(int x, int y, int sp) : base(x,y,sp)
     {
         _x=x;
         _y=y;
@@ -18,8 +18,17 @@ class Gems : FallingObject
         
     }
 
-    public override void HitPlayer(GameObject other)
+    public override bool HitPlayer(GameObject other)
     {
+        // other.Getter("x") > _x && 
+        if (_x < other.Getter("x")+20 && _x+20 > other.Getter("x") && _y < other.Getter("y")+20 && _y+20 > other.Getter("y") && _speed > 0)
+        {
+            return true;
+        }
 
+        else
+        {
+            return false;
+        }
     }
 }
